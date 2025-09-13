@@ -15,5 +15,7 @@ yarn-error.log*
 dist/
 build/
 
+backend.zip
+
 # VSCode settings
 .vscode/
