@@ -51,10 +51,32 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-6">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Curved background pattern inspired by the design */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2">
+          <svg viewBox="0 0 500 500" className="w-full h-full opacity-10">
+            <defs>
+              <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(20 100% 65%)" />
+                <stop offset="100%" stopColor="hsl(15 95% 70%)" />
+              </linearGradient>
+            </defs>
+            {[...Array(20)].map((_, i) => (
+              <path
+                key={i}
+                d={`M ${100 + i * 15} 0 Q ${200 + i * 10} ${100 + i * 20} ${400 + i * 5} ${200 + i * 15}`}
+                stroke="url(#curveGradient)"
+                strokeWidth="1"
+                fill="none"
+              />
+            ))}
+          </svg>
+        </div>
+      </div>
+      <div className="container mx-auto p-6 relative z-10">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-orange-500 to-orange-400 bg-clip-text text-transparent">
             Subscription Management System
           </h1>
           <p className="text-muted-foreground mt-2 text-lg">
@@ -85,7 +107,7 @@ const Index = () => {
             <Analytics plans={plans} />
           </TabsContent>
         </Tabs>
-      </div>
+    </div>
     </div>
   );
 };
