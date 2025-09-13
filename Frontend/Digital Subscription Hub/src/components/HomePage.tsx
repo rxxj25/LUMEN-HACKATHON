@@ -10,12 +10,17 @@ import {
   CheckCircle, 
   Star,
   Globe,
-  BarChart3
+  BarChart3,
+  LogIn,
+  User
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import DemoCredentials from "./DemoCredentials";
 import heroImage from "@/assets/hero-network.jpg";
 
 const HomePage = () => {
+  const { isAuthenticated, user } = useAuth();
   const plans = [
     {
       name: "Fibernet Basic",
@@ -82,10 +87,41 @@ const HomePage = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Link to="/login">
-                <Button variant="outline">Sign In</Button>
-              </Link>
-              <Button variant="hero">Get Started</Button>
+              {isAuthenticated ? (
+                <>
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <User className="h-4 w-4" />
+                    <span>Welcome, {user?.name}</span>
+                    {user?.role === 'admin' && (
+                      <Badge variant="secondary" className="text-xs">
+                        Admin
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Link to="/dashboard">
+                      <Button variant="outline">Dashboard</Button>
+                    </Link>
+                    {user?.role === 'admin' && (
+                      <Link to="/admin">
+                        <Button variant="hero">Admin Panel</Button>
+                      </Link>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="outline">
+                      <LogIn className="h-4 w-4 mr-2" />
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button variant="hero">Get Started</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -243,19 +279,38 @@ const HomePage = () => {
               Join thousands of satisfied customers and experience the future of connectivity.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/login">
+              <Link to="/signup">
                 <Button variant="hero" size="lg" className="text-lg px-8">
                   Start Your Journey
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="text-lg">
-                Contact Sales
-              </Button>
+              <Link to="/login">
+                <Button variant="outline" size="lg" className="text-lg">
+                  Sign In
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Demo Credentials Section */}
+      {!isAuthenticated && (
+        <section className="py-20 bg-muted/30">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                Try It Out Now!
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                No backend required - use these demo credentials to test the full functionality
+              </p>
+            </div>
+            <DemoCredentials />
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="border-t border-border/20 bg-muted/30">

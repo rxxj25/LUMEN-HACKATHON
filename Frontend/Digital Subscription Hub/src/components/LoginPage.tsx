@@ -11,19 +11,51 @@ import {
   ArrowLeft,
   Shield,
   Zap,
-  Users
+  Users,
+  Loader2,
+  AlertCircle
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { login } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt:", { email, password });
+    setError("");
+    setIsLoading(true);
+
+    try {
+      await login({ email, password });
+      toast({
+        title: "Login successful",
+        description: "Welcome back!",
+      });
+      navigate(from, { replace: true });
+    } catch (error: any) {
+      const errorMessage = error.message || "Login failed. Please try again.";
+      setError(errorMessage);
+      toast({
+        title: "Login failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const benefits = [
@@ -70,6 +102,13 @@ const LoginPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              {error && (
+                <div className="flex items-center space-x-2 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+                  <AlertCircle className="h-4 w-4 text-destructive" />
+                  <span className="text-sm text-destructive">{error}</span>
+                </div>
+              )}
+              
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
@@ -80,6 +119,7 @@ const LoginPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled={isLoading}
                     className="border-border/50 focus:ring-primary focus:border-primary"
                   />
                 </div>
@@ -94,12 +134,14 @@ const LoginPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
+                      disabled={isLoading}
                       className="border-border/50 focus:ring-primary focus:border-primary pr-10"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-primary transition-smooth"
+                      disabled={isLoading}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-primary transition-smooth disabled:opacity-50"
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -131,8 +173,16 @@ const LoginPage = () => {
                   variant="hero" 
                   className="w-full" 
                   size="lg"
+                  disabled={isLoading}
                 >
-                  Sign In
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Signing In...
+                    </>
+                  ) : (
+                    "Sign In"
+                  )}
                 </Button>
               </form>
 
@@ -151,9 +201,9 @@ const LoginPage = () => {
 
                 <div className="text-center text-sm text-muted-foreground">
                   Don't have an account?{" "}
-                  <button className="text-primary hover:text-primary/80 font-medium transition-smooth">
+                  <Link to="/signup" className="text-primary hover:text-primary/80 font-medium transition-smooth">
                     Sign up here
-                  </button>
+                  </Link>
                 </div>
               </div>
             </CardContent>
