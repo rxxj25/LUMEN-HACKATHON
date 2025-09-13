@@ -1,0 +1,326 @@
+/* ================= RESET ================= */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f3f3f3;
+  height: 100%;
+}
+
+/* ================= LAYOUT ================= */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #FF6600;
+  color: white;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+}
+.sidebar-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 15px 20px;
+}
+.sidebar-nav a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+.sidebar-nav a:hover {
+  background: #FF8533;
+}
+
+.main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  overflow-y: auto;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #FF6600;
+}
+.logout-btn {
+  background: #FF6600;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.logout-btn:hover {
+  background: #FF8533;
+}
+
+/* ================= HEADER SECTIONS ================= */
+.manage-plans-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.pricing-container {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+}
+.pricing-container h2 {
+  color: #FF6600;
+  margin-bottom: 10px;
+}
+.pricing-container p {
+  margin-bottom: 15px;
+}
+
+/* ================= CARDS ================= */
+.cards-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.card {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #FF6600;
+}
+.card-value {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* ================= FORM ================= */
+.form-container {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+}
+.form-container h2 {
+  margin-bottom: 10px;
+  color: #FF6600;
+}
+.form-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.form-row input {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.form-row button {
+  background: #FF6600;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.form-row button:hover {
+  background: #FF8533;
+}
+
+/* ================= TABLE ================= */
+.table-container {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+.table-container h2 {
+  margin-bottom: 10px;
+  color: #FF6600;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  background: #FF6600;
+  color: white;
+  padding: 10px;
+}
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+tr:nth-child(even) {
+  background: #FFF4E6;
+}
+.edit-btn {
+  color: #007bff;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.delete-btn {
+  color: #e84118;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* ================= CHART ================= */
+.chart-container {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+}
+.chart-container h2 {
+  margin-bottom: 10px;
+  color: #FF6600;
+}
+
+/* ================= BUTTONS ================= */
+.add-btn {
+  background: #FF6600;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.add-btn:hover {
+  background: #FF8533;
+}
+
+/* ================= MODALS ================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+/* Add / Edit Modal */
+.modal, .edit-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal h2, .edit-modal h2 {
+  margin-bottom: 10px;
+  color: #FF6600;
+}
+.modal input, .edit-modal input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.modal-actions, .edit-modal .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.cancel-btn {
+  background: #ccc;
+  color: black;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancel-btn:hover {
+  background: #999;
+}
+.save-btn {
+  background: #FF6600;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.save-btn:hover {
+  background: #FF8533;
+}
+
+/* Delete Modal */
+.delete-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.delete-modal h2 {
+  margin-bottom: 10px;
+  color: #e84118;
+}
+.delete-modal p {
+  margin: 15px 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+.delete-modal .modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+.delete-btn-confirm {
+  background: #e84118;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.delete-btn-confirm:hover {
+  background: #c23616;
+}
