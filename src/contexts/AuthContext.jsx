@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import apiService from '../services/api';
 
 const AuthContext = createContext();
 
@@ -73,24 +74,24 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'LOGIN_START' });
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Call real API
+      const response = await apiService.login({ email, password, role });
       
-      // Mock user data based on role
       const user = {
-        id: role === 'admin' ? 'admin-1' : 'user-1',
-        email,
-        name: role === 'admin' ? 'Admin User' : 'John Doe',
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(role === 'admin' ? 'Admin' : 'User')}&background=3b82f6&color=fff`,
+        id: response.user.id,
+        email: response.user.email,
+        name: response.user.name,
+        role: response.user.role,
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(response.user.name)}&background=3b82f6&color=fff`,
       };
 
       // Save to localStorage
       localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('role', role);
+      localStorage.setItem('role', response.user.role);
 
       dispatch({
         type: 'LOGIN_SUCCESS',
-        payload: { user, role },
+        payload: { user, role: response.user.role },
       });
 
       return { success: true };
@@ -100,10 +101,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('role');
-    dispatch({ type: 'LOGOUT' });
+  const logout = async () => {
+    try {
+      await apiService.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      localStorage.removeItem('user');
+      localStorage.removeItem('role');
+      dispatch({ type: 'LOGOUT' });
+    }
   };
 
   const value = {

@@ -1,5 +1,5 @@
 {
-  "name": "subscription-management-frontend",
+  "name": "lumen-hackathon-integrated",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,7 +12,12 @@
     "dev:fullstack": "concurrently \"npm run dev\" \"npm run dev:backend\"",
     "dev:backend": "cd backend && npm run dev",
     "install:all": "npm install && cd backend && npm install",
-    "setup:backend": "mkdir -p backend && cd backend && npm init -y && npm install express cors dotenv mongoose"
+    "setup:backend": "cd backend && npm install",
+    "start": "cd backend && npm start",
+    "build:fullstack": "npm run build && cd backend && npm install --production",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "npm run lint",
+    "test:backend": "cd backend && npm test"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",
