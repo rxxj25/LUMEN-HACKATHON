@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 15 95% 70%;
+    --background: 10 85% 68%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 100%;
@@ -36,11 +36,11 @@ All colors MUST be HSL.
     --input: 0 0% 95%;
     --ring: 0 0% 98%;
 
-    /* Custom design tokens - Orange/Coral theme */
-    --gradient-primary: linear-gradient(135deg, hsl(15 95% 70%), hsl(20 100% 65%));
+    /* Custom design tokens - Coral to Orange gradient like the image */
+    --gradient-primary: linear-gradient(135deg, hsl(10 85% 68%), hsl(30 90% 62%));
     --gradient-secondary: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 95%));
-    --gradient-background: linear-gradient(135deg, hsl(15 95% 70%), hsl(20 100% 65%));
-    --gradient-orange: linear-gradient(135deg, hsl(15 85% 55%), hsl(25 90% 60%));
+    --gradient-background: linear-gradient(135deg, hsl(10 85% 68%), hsl(30 90% 62%));
+    --gradient-orange: linear-gradient(135deg, hsl(10 85% 68%), hsl(30 90% 62%));
     --success: 142 76% 36%;
     --success-foreground: 0 0% 98%;
     --warning: 38 92% 50%;
@@ -113,7 +113,7 @@ All colors MUST be HSL.
 
   body {
     @apply text-foreground;
-    background: linear-gradient(135deg, hsl(15 95% 70%), hsl(20 100% 65%));
+    background: linear-gradient(135deg, hsl(10 85% 68%), hsl(30 90% 62%));
     min-height: 100vh;
   }
 }
