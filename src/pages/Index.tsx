@@ -54,20 +54,30 @@ const Index = () => {
     <div className="min-h-screen relative overflow-hidden">
       {/* Curved background pattern inspired by the design */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-1/2">
-          <svg viewBox="0 0 500 500" className="w-full h-full opacity-10">
+        <div className="absolute top-0 right-0 w-full h-full">
+          <svg viewBox="0 0 1200 800" className="w-full h-full opacity-20">
             <defs>
               <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(20 100% 65%)" />
-                <stop offset="100%" stopColor="hsl(15 95% 70%)" />
+                <stop offset="0%" stopColor="white" />
+                <stop offset="100%" stopColor="white" />
               </linearGradient>
             </defs>
-            {[...Array(20)].map((_, i) => (
+            {[...Array(25)].map((_, i) => (
               <path
                 key={i}
-                d={`M ${100 + i * 15} 0 Q ${200 + i * 10} ${100 + i * 20} ${400 + i * 5} ${200 + i * 15}`}
+                d={`M ${200 + i * 20} 0 Q ${400 + i * 15} ${150 + i * 25} ${800 + i * 10} ${300 + i * 20}`}
+                stroke="url(#curveGradient)"
+                strokeWidth="2"
+                fill="none"
+              />
+            ))}
+            {[...Array(25)].map((_, i) => (
+              <path
+                key={`dots-${i}`}
+                d={`M ${250 + i * 25} ${100 + i * 30} Q ${450 + i * 20} ${200 + i * 35} ${750 + i * 15} ${350 + i * 25}`}
                 stroke="url(#curveGradient)"
                 strokeWidth="1"
+                strokeDasharray="3,5"
                 fill="none"
               />
             ))}
@@ -76,10 +86,10 @@ const Index = () => {
       </div>
       <div className="container mx-auto p-6 relative z-10">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-orange-500 to-orange-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-white drop-shadow-lg">
             Subscription Management System
           </h1>
-          <p className="text-muted-foreground mt-2 text-lg">
+          <p className="text-white/90 mt-2 text-lg drop-shadow">
             Professional dashboard for managing subscription plans and tracking business analytics
           </p>
         </div>

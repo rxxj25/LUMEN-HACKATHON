@@ -8,38 +8,38 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 15 15% 8%;
+    --background: 15 95% 70%;
     --foreground: 0 0% 98%;
 
-    --card: 15 15% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 15 15% 15%;
 
-    --popover: 15 15% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 15 15% 15%;
 
-    --primary: 20 100% 65%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 15 15% 15%;
 
-    --secondary: 15 10% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 15 15% 15%;
 
-    --muted: 15 10% 15%;
-    --muted-foreground: 15 5% 65%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 15 15% 35%;
 
-    --accent: 15 10% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 95%;
+    --accent-foreground: 15 15% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 15 10% 20%;
-    --input: 15 10% 20%;
-    --ring: 20 100% 65%;
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --ring: 0 0% 98%;
 
     /* Custom design tokens - Orange/Coral theme */
-    --gradient-primary: linear-gradient(135deg, hsl(20 100% 65%), hsl(15 95% 70%));
-    --gradient-secondary: linear-gradient(135deg, hsl(15 10% 15%), hsl(15 15% 20%));
-    --gradient-background: linear-gradient(135deg, hsl(15 15% 8%), hsl(10 20% 12%));
+    --gradient-primary: linear-gradient(135deg, hsl(15 95% 70%), hsl(20 100% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 95%));
+    --gradient-background: linear-gradient(135deg, hsl(15 95% 70%), hsl(20 100% 65%));
     --gradient-orange: linear-gradient(135deg, hsl(15 85% 55%), hsl(25 90% 60%));
     --success: 142 76% 36%;
     --success-foreground: 0 0% 98%;
@@ -112,8 +112,8 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
-    background: linear-gradient(135deg, hsl(15 15% 8%), hsl(10 20% 12%));
+    @apply text-foreground;
+    background: linear-gradient(135deg, hsl(15 95% 70%), hsl(20 100% 65%));
     min-height: 100vh;
   }
 }
