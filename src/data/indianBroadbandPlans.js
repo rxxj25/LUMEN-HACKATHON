@@ -17,12 +17,8 @@ export const indianBroadbandPlans = [
       'WiFi router included'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'BSNL Fiber',
-    validity: 30, // days
-    speed: '100 Mbps',
-    category: 'Basic'
+    speed: '100 Mbps'
   },
   {
     id: 'fiber-unlimited-100',
@@ -39,12 +35,8 @@ export const indianBroadbandPlans = [
       'OTT platform access'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'Airtel Fiber',
-    validity: 30,
-    speed: '150 Mbps',
-    category: 'Popular'
+    speed: '150 Mbps'
   },
   {
     id: 'fiber-unlimited-200',
@@ -62,12 +54,8 @@ export const indianBroadbandPlans = [
       'Parental controls'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'Jio Fiber',
-    validity: 30,
-    speed: '200 Mbps',
-    category: 'Premium'
+    speed: '200 Mbps'
   },
   {
     id: 'fiber-unlimited-500',
@@ -86,12 +74,8 @@ export const indianBroadbandPlans = [
       'Cloud storage (100 GB)'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'Tata Play Fiber',
-    validity: 30,
-    speed: '300 Mbps',
-    category: 'Gaming'
+    speed: '300 Mbps'
   },
   {
     id: 'fiber-unlimited-1000',
@@ -111,12 +95,8 @@ export const indianBroadbandPlans = [
       'Static IP address'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'ACT Fibernet',
-    validity: 30,
-    speed: '500 Mbps',
-    category: 'Business'
+    speed: '500 Mbps'
   },
 
   // Broadband Copper Plans (Traditional DSL)
@@ -134,12 +114,8 @@ export const indianBroadbandPlans = [
       'Basic WiFi router'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'BSNL Broadband',
-    validity: 30,
-    speed: '50 Mbps',
-    category: 'Budget'
+    speed: '50 Mbps'
   },
   {
     id: 'broadband-standard-40',
@@ -156,12 +132,8 @@ export const indianBroadbandPlans = [
       'Email support'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'MTNL Broadband',
-    validity: 30,
-    speed: '80 Mbps',
-    category: 'Standard'
+    speed: '80 Mbps'
   },
   {
     id: 'broadband-premium-80',
@@ -179,12 +151,8 @@ export const indianBroadbandPlans = [
       'Parental controls'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'Hathway Broadband',
-    validity: 30,
-    speed: '100 Mbps',
-    category: 'Premium'
+    speed: '100 Mbps'
   },
   {
     id: 'broadband-unlimited-150',
@@ -203,12 +171,8 @@ export const indianBroadbandPlans = [
       'Cloud backup'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'Excitel Broadband',
-    validity: 30,
-    speed: '150 Mbps',
-    category: 'Unlimited'
+    speed: '150 Mbps'
   },
 
   // Special Plans
@@ -227,12 +191,8 @@ export const indianBroadbandPlans = [
       'Free installation'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'BSNL Fiber',
-    validity: 30,
     speed: '100 Mbps',
-    category: 'Student',
     isSpecial: true
   },
   {
@@ -250,12 +210,8 @@ export const indianBroadbandPlans = [
       'Free installation'
     ],
     isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
     provider: 'BSNL Broadband',
-    validity: 30,
     speed: '50 Mbps',
-    category: 'Senior',
     isSpecial: true
   }
 ];

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Star, CheckCircle, ArrowRight } from 'lucide-react';
+import { Search, Filter, Star, CheckCircle, ArrowRight, User, ArrowLeft } from 'lucide-react';
 import { useSubscription } from '../../contexts/SubscriptionContext.jsx';
+import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../components/shared/ConfirmationModal';
 import UPIPayment from '../../components/payment/UPIPayment';
-import { PLAN_TYPES } from '../../utils/constants';
+import { PLAN_TYPES, ROUTES } from '../../utils/constants';
 import { formatCurrency, getPlanTypeColor, filterPlansByType, sortPlans } from '../../utils/helpers';
 
 const PlanBrowser = () => {
   const { plans, currentSubscription, subscribeToPlan, isLoading, error, reloadPlans } = useSubscription();
+  const navigate = useNavigate();
   
   // Debug logging
   console.log('PlanBrowser - plans:', plans);
@@ -97,16 +99,18 @@ const PlanBrowser = () => {
 
   const PlanCard = ({ plan }) => {
     const isCurrent = isCurrentPlan(plan);
-    const isPopular = plan.price <= 800; // Popular plans under ₹800
+    const isPopular = plan.price <= 800;
+    const isSpecial = plan.isSpecial;
 
     return (
       <div className={`card lumen-card-hover ${
         isCurrent ? 'ring-2 ring-orange-500 bg-orange-50' : ''
-      } ${isPopular ? 'relative' : ''}`}>
-        {isPopular && (
-          <div className="absolute -top-3 left-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-medium flex items-center">
+      } ${isPopular || isSpecial ? 'relative' : ''}`}>
+        {/* Special Badge */}
+        {isSpecial && (
+          <div className="absolute -top-3 left-4 bg-purple-400 text-purple-900 px-3 py-1 rounded-full text-xs font-medium flex items-center">
             <Star className="w-3 h-3 mr-1 fill-current" />
-            Popular
+            Special
           </div>
         )}
         
@@ -119,9 +123,16 @@ const PlanBrowser = () => {
         <div className="flex justify-between items-start mb-4">
           <div>
             <h3 className="text-xl font-bold text-gray-900">{plan.name}</h3>
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${getPlanTypeColor(plan.type)}`}>
-              {plan.type}
-            </span>
+            <div className="flex items-center gap-2 mt-1">
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPlanTypeColor(plan.type)}`}>
+                {plan.type}
+              </span>
+              {plan.provider && (
+                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                  {plan.provider}
+                </span>
+              )}
+            </div>
           </div>
           <div className="text-right">
             <p className="text-3xl font-bold text-gray-900">{formatCurrency(plan.price)}</p>
@@ -129,13 +140,17 @@ const PlanBrowser = () => {
           </div>
         </div>
 
+        {/* Speed and Data Info */}
         <div className="mb-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">Monthly Data</span>
-            <span className="text-lg font-semibold text-gray-900">{plan.monthlyQuota} GB</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full w-full" />
+          <div className="grid grid-cols-2 gap-4 mb-3">
+            <div className="text-center p-3 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-600">Speed</p>
+              <p className="font-semibold text-gray-900">{plan.speed}</p>
+            </div>
+            <div className="text-center p-3 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-600">Data</p>
+              <p className="font-semibold text-gray-900">{plan.monthlyQuota} GB</p>
+            </div>
           </div>
         </div>
 
@@ -193,8 +208,51 @@ const PlanBrowser = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Browse Plans</h1>
-        <p className="text-gray-600 mt-2">Choose the perfect plan for your needs</p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Browse Plans</h1>
+            <p className="text-gray-600 mt-2">Choose the perfect plan for your needs</p>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => navigate(ROUTES.USER_DASHBOARD)}
+              className="btn-secondary flex items-center"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Dashboard
+            </button>
+            <button
+              onClick={() => navigate(ROUTES.CURRENT_SUBSCRIPTION)}
+              className="btn-primary flex items-center"
+            >
+              <User className="w-4 h-4 mr-2" />
+              My Subscription
+            </button>
+          </div>
+        </div>
+        
+        {/* Current Subscription Status */}
+        {currentSubscription && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <CheckCircle className="w-5 h-5 text-blue-600 mr-2" />
+                <div>
+                  <p className="text-sm font-medium text-blue-900">Current Plan Active</p>
+                  <p className="text-xs text-blue-700">
+                    {plans.find(p => p.id === currentSubscription.planId)?.name || 'Unknown Plan'}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => navigate(ROUTES.CURRENT_SUBSCRIPTION)}
+                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              >
+                View Details →
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Filters */}

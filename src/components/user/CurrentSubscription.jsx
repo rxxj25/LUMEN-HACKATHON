@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, Wifi, AlertTriangle, CheckCircle } from 'lucide-react';
 import { formatCurrency, formatDate, calculateUsagePercentage, getUsageStatusColor, getUsageStatusText, getDaysUntilExpiry } from '../../utils/helpers';
 import { SUBSCRIPTION_STATUS } from '../../utils/constants';
+import UPIPayment from '../payment/UPIPayment';
+import ConfirmationModal from '../shared/ConfirmationModal';
 
 const CurrentSubscription = ({ subscription, plan, onCancel, onRenew }) => {
+  const [showRenewModal, setShowRenewModal] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   if (!subscription || !plan) {
     return (
       <div className="card text-center py-12">
@@ -24,6 +30,38 @@ const CurrentSubscription = ({ subscription, plan, onCancel, onRenew }) => {
   const daysUntilExpiry = getDaysUntilExpiry(subscription.endDate);
   const isExpiringSoon = daysUntilExpiry <= 7 && daysUntilExpiry > 0;
   const isExpired = daysUntilExpiry <= 0;
+
+  const handleRenewClick = () => {
+    setShowRenewModal(true);
+  };
+
+  const handleRenewConfirm = () => {
+    setShowRenewModal(false);
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentSuccess = async () => {
+    setIsSubmitting(true);
+    try {
+      await onRenew();
+      setShowPaymentModal(false);
+      alert('Subscription renewed successfully!');
+    } catch (error) {
+      console.error('Error renewing subscription:', error);
+      alert('Renewal failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handlePaymentFailure = (errorMessage) => {
+    setShowPaymentModal(false);
+    alert(`Payment failed: ${errorMessage}`);
+  };
+
+  const handlePaymentCancel = () => {
+    setShowPaymentModal(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -140,7 +178,7 @@ const CurrentSubscription = ({ subscription, plan, onCancel, onRenew }) => {
           <>
             {isExpired ? (
               <button
-                onClick={onRenew}
+                onClick={handleRenewClick}
                 className="btn-primary flex-1"
               >
                 Renew Subscription
@@ -158,7 +196,7 @@ const CurrentSubscription = ({ subscription, plan, onCancel, onRenew }) => {
         
         {subscription.status === SUBSCRIPTION_STATUS.CANCELLED && (
           <button
-            onClick={onRenew}
+            onClick={handleRenewClick}
             className="btn-primary flex-1"
           >
             Reactivate Subscription
@@ -180,6 +218,28 @@ const CurrentSubscription = ({ subscription, plan, onCancel, onRenew }) => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Renewal Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={showRenewModal}
+        onClose={() => setShowRenewModal(false)}
+        onConfirm={handleRenewConfirm}
+        title="Renew Subscription"
+        message={`Are you sure you want to renew your ${plan.name} subscription for ${formatCurrency(plan.price)}?`}
+        confirmText="Proceed to Payment"
+        type="info"
+        isLoading={isSubmitting}
+      />
+
+      {/* UPI Payment Modal */}
+      {showPaymentModal && (
+        <UPIPayment
+          plan={plan}
+          onPaymentSuccess={handlePaymentSuccess}
+          onPaymentFailure={handlePaymentFailure}
+          onCancel={handlePaymentCancel}
+        />
       )}
     </div>
   );

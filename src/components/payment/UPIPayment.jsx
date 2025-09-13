@@ -468,9 +468,14 @@ const UPIPayment = ({
                 {formatCurrency(plan.price)}
               </span>
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 mb-2">
               {plan.type} • {plan.monthlyQuota} GB • {plan.speed}
             </div>
+            {plan.provider && (
+              <div className="text-xs text-gray-500">
+                Provider: {plan.provider}
+              </div>
+            )}
           </div>
 
           {/* Payment Steps */}
