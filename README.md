@@ -146,13 +146,37 @@ src/
 - Safari (latest)
 - Edge (latest)
 
+## 🔗 Integration with Team Components
+
+This repository is set up as the main integration point for the LUMEN Hackathon project. See [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md) for detailed instructions on how to integrate frontend, backend, and mobile components.
+
+### Quick Integration Commands
+
+```bash
+# Clone and setup
+git clone https://github.com/rxxj25/LUMEN-HACKATHON.git
+cd LUMEN-HACKATHON
+npm install
+npm run dev
+
+# For backend integration
+mkdir backend
+cd backend
+npm init -y
+npm install express cors dotenv
+
+# For mobile integration  
+npx react-native init LumenMobile --directory mobile
+```
+
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch (`git checkout -b feature/your-feature`)
 3. Make your changes
 4. Test thoroughly
 5. Submit a pull request
+6. Follow the integration guidelines in [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## License
 
